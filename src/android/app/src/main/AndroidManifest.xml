@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="singleheaven.remotedebug.android">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".AppMain"
+        android:debuggable="false"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        tools:ignore="HardcodedDebugMode">
+
+        <service
+            android:name=".service.JdwpService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <!-- 程序主入口 -->
+                <action android:name="android.intent.action.MAIN" />
+
+                <!-- 启动的Launcher -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

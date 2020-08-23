@@ -1,0 +1,81 @@
+plugins {
+    id 'org.tboox.gradle-xmake-plugin' version '1.1.3'
+}
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "singleheaven.remotedebug.android"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "jni/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+
+    sourceSets{
+        main{
+            java {
+                srcDirs 'src/main/java'
+            }
+            proto {
+                srcDirs 'src/main/java/com/freddy/im/protobuf'
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+//编写编译任务，调用plugin编译生成java文件
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.0.0'//编译器版本
+    }
+    plugins {
+        javalite {
+            artifact = 'com.google.protobuf:protoc-gen-javalite:3.0.0'//指定当前工程使用的protobuf版本为javalite版，以生成javalite版的java类
+        }
+    }
+    generateProtoTasks.generatedFilesBaseDir = "$projectDir/src/main/java" //指定编译生成java类的存放位置
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                javalite {
+                    outputSubDir = '' //指定存放位置的二级目录，这里未指定
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    implementation rootProject.ext.dependencies.multidex
+}
