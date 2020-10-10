@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.alibaba.fastjson.JSONObject;
 import com.freddy.chat.im.MessageType;
@@ -66,13 +67,18 @@ public class MainActivity extends Activity {
         }
     }
 
-    private final NettyImpl debugCommunication = new DeviceNettyImpl("android-27cc6c58-10db-4eee-a77f-6ff24800e56d", "192.168.3.14", 8090);
+    private NettyImpl debugCommunication;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        EditText address = findViewById(R.id.address);
+        EditText port = findViewById(R.id.port);
+        debugCommunication = new DeviceNettyImpl("android-27cc6c58-10db-4eee-a77f-6ff24800e56d",
+                address.getText().toString(), Integer.parseInt(port.getText().toString()));
 
         final Button testBtn = findViewById(R.id.test_only);
         testBtn.setOnClickListener(view -> {
