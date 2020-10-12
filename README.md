@@ -1,6 +1,7 @@
 # AndroidRemoteDebug_TargetApp
 【背景】  
 偶然读到了美团的一篇文章[Android远程调试的探索与实现](https://tech.meituan.com/2017/07/20/android-remote-debug.html)，感觉比较有意思，就试着自己实现出来。  
+为了避免重复造轮子，在我动手（2020年9月1日）之前，我在网上并没有搜索到有类似的完整项目，希望它是第一个：）  
 ![模块图](README_FILES/arhitecture.png)  
 ![主流程各方协作](README_FILES/sequence.png)  
 引入较为严格的端到端的超时机制，只要出现一次超时就结束debug session。因而两端暂时不需要消息重发机制。  
