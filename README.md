@@ -29,3 +29,6 @@
 * [JDWP 协议及实现](https://developer.ibm.com/zh/articles/j-lo-jpda3/)：结合工具 Wireshark，对协议传输过程做了一些抓包分析，对后续的开发和调试大有帮助。  
 * [开源一个自用的Android IM库，基于Netty+TCP+Protobuf实现](https://www.jianshu.com/p/00ba0ac2fc96)：针对业务实现做了一些接口的变化。  
 * [hack0z/byOpen](https://github.com/hack0z/byOpen)：做了lua->cmake编译环境的改造。
+# 持续迭代
+未来目标是让这个项目成为解决问题的一体化工具。不仅可以用于远程调试，还可以收集Android端的各种现场信息用作辅助分析。  
+![Android崩溃收集和处理](README_FILES/AndroidCrash.png)
